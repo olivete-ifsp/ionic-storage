@@ -1,0 +1,7 @@
+{
+  "name": "trabalhando_storage",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
