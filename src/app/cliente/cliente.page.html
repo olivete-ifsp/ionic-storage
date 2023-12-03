@@ -1,0 +1,50 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Manutenção de Clientes
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Clientes</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-button (click)="adicionarCliente()" expand="block">Adicionar Cliente</ion-button>
+  <ion-searchbar 
+      show-clear-button="always" 
+      animated="true" 
+      [debounce]="1000"
+      placeholder="Pesquisar"
+      (ionInput)="tratarBusca($event)">
+  </ion-searchbar>
+  <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <strong>Nome</strong>
+        </ion-col>
+        <ion-col size="4">
+          <strong>Telefone</strong>
+        </ion-col>
+        <ion-col size="2">
+          <strong>Ações</strong>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngFor="let cliente of clientes; let i=index">
+        <ion-col size="6">
+          {{cliente.nome}}
+        </ion-col>
+        <ion-col size="3">
+          {{cliente.telefone}}
+        </ion-col>
+        <ion-col size="3">
+            <!-- <ion-button size="small" aria-label="Excluir"> -->
+              <ion-icon (click)="excluirCliente(i)" name="trash-outline" color="primary" aria-label="Excluir"></ion-icon>
+              <ion-icon (click)="editarCliente(i)" name="create-outline" color="primary" aria-label="Alterar"></ion-icon>
+            <!-- </ion-button> -->
+        </ion-col>
+      </ion-row>
+  </ion-grid>
+</ion-content>
