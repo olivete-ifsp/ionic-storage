@@ -36,11 +36,12 @@ export class UtilidadesTelaComponent {
   async apresentarAlerta(titulo: string, mensagem:string) {
     const alert = await this.alertController.create({
       header: titulo,
-      message: mensagem,
+      message: mensagem,  
       buttons: this.botoes,
     });
 
     await alert.present();
+    return await alert.onDidDismiss(); 
   }
 
   async apresentarMensagem(mensagem: string) {

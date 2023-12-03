@@ -13,7 +13,7 @@ import { UtilidadesTelaComponent } from '../util/utilidades-tela/utilidades-tela
 export class ClientePage {
 
   alertButtons = ['Action'];
-  public clientes :any[] =[] 
+  public clientes: any[] = []
 
   constructor(
     private modalCtrl: ModalController,
@@ -21,7 +21,7 @@ export class ClientePage {
     private utilidades: UtilidadesTelaComponent
   ) {
     clienteStorage.ler()
-      .then (
+      .then(
         (clientes) => {
           this.clientes = clientes
           utilidades.apresentarMensagem(`${this.clientes.length} clientes foram carregados.`)
@@ -29,16 +29,14 @@ export class ClientePage {
       );
   }
 
-  public tratarBusca(event:any)
-  {
-    if (event.event.target.value.length > 0)
-    {
+  public tratarBusca(event: any) {
+    if (event.event.target.value.length > 0) {
 
     }
   }
 
   async adicionarCliente() {
-    let cliente:any = null;
+    let cliente: any = null;
     const janelaModal = await this.modalCtrl.create({
       component: ClienteDadosPage,
       componentProps: cliente
@@ -50,46 +48,46 @@ export class ClientePage {
     console.log(role)
 
     if (role === 'confirmar') {
-        this.clientes.push(data)
-        this.clienteStorage.gravar(this.clientes)
-          .then( 
-            () => {
-                this.utilidades.apresentarMensagem("Cliente Cadastrado.")
-            }
-          )
-          .catch( 
-            () => {
-                this.utilidades.apresentarMensagem("Erro ao cadastrar o cliente.")
-            }
-          )
+      this.clientes.push(data)
+      this.clienteStorage.gravar(this.clientes)
+        .then(
+          () => {
+            this.utilidades.apresentarMensagem("Cliente Cadastrado.")
+          }
+        )
+        .catch(
+          () => {
+            this.utilidades.apresentarMensagem("Erro ao cadastrar o cliente.")
+          }
+        )
     }
   }
 
-  public excluirCliente(posicao: number)
-  {
+  public excluirCliente(posicao: number) {
     this.utilidades.apresentarAlerta("Exclusão de Clientes", "Confirma a exclusão?")
-    .then (
-      (evento) => {
-        console.log(evento)
-        this.clientes.splice(posicao, 1)
-        this.clienteStorage.gravar(this.clientes)
-          .then( 
-            () => {
-                this.utilidades.apresentarMensagem("Cliente Excluído.")
-            }
-          )
-          .catch( 
-            () => {
-                this.utilidades.apresentarMensagem("Erro ao excluir o cliente.")
-            }
-          )
-      }
-    )
-    
+      .then(
+        (resposta) => {
+          console.log(resposta)
+          if (resposta.role == "Sim") {
+            this.clientes.splice(posicao, 1)
+            this.clienteStorage.gravar(this.clientes)
+              .then(
+                () => {
+                  this.utilidades.apresentarMensagem("Cliente Excluído.")
+                }
+              )
+              .catch(
+                () => {
+                  this.utilidades.apresentarMensagem("Erro ao excluir o cliente.")
+                }
+              )
+          }
+        }
+      )
+
   }
 
-  public async editarCliente(posicao: number)
-  {
+  public async editarCliente(posicao: number) {
     const janelaModal = await this.modalCtrl.create({
       component: ClienteDadosPage,
       componentProps: this.clientes[posicao]
@@ -99,18 +97,18 @@ export class ClientePage {
     const { data, role } = await janelaModal.onWillDismiss();
 
     if (role === 'confirmar') {
-        this.clientes[posicao] = data
-        this.clienteStorage.gravar(this.clientes)
-          .then( 
-            () => {
-                this.utilidades.apresentarMensagem("Cliente Cadastrado.")
-            }
-          )
-          .catch( 
-            () => {
-                this.utilidades.apresentarMensagem("Erro ao cadastrar o cliente.")
-            }
-          )
+      this.clientes[posicao] = data
+      this.clienteStorage.gravar(this.clientes)
+        .then(
+          () => {
+            this.utilidades.apresentarMensagem("Cliente Cadastrado.")
+          }
+        )
+        .catch(
+          () => {
+            this.utilidades.apresentarMensagem("Erro ao cadastrar o cliente.")
+          }
+        )
     }
   }
 }

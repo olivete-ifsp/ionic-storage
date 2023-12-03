@@ -12,6 +12,39 @@
       <ion-title size="large">Produtos</ion-title>
     </ion-toolbar>
   </ion-header>
-
-  <app-explore-container name="Produtos page"></app-explore-container>
+  <ion-button (click)="adicionarProduto()" expand="block">Adicionar Produto</ion-button>
+  <ion-searchbar 
+      show-clear-button="always" 
+      animated="true" 
+      [debounce]="1000"
+      placeholder="Pesquisar"
+      (ionInput)="tratarBusca($event)">
+  </ion-searchbar>
+  <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <strong>Nome</strong>
+        </ion-col>
+        <ion-col size="4">
+          <strong>Preço</strong>
+        </ion-col>
+        <ion-col size="2">
+          <strong>Ações</strong>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngFor="let produto of produtos; let i=index">
+        <ion-col size="6">
+          {{produto.nome}}
+        </ion-col>
+        <ion-col size="3">
+          {{produto.preco}}
+        </ion-col>
+        <ion-col size="3">
+            <!-- <ion-button size="small" aria-label="Excluir"> -->
+              <ion-icon (click)="excluirProduto(i)" name="trash-outline" color="primary" aria-label="Excluir"></ion-icon>
+              <ion-icon (click)="editarProduto(i)" name="create-outline" color="primary" aria-label="Alterar"></ion-icon>
+            <!-- </ion-button> -->
+        </ion-col>
+      </ion-row>
+  </ion-grid>
 </ion-content>

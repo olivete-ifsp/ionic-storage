@@ -60,4 +60,9 @@ export class ClienteDadosPage {
     return this.modalCtrl.dismiss(cliente, 'confirmar');
   }
 
+  public gerenciaEstado(evento: any)
+  {
+    console.log(evento)
+    this.uf = evento.detail.value;
+  }
 }

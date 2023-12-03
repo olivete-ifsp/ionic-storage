@@ -34,8 +34,12 @@
   </ion-item>
 
   <ion-item>
-    <ion-select label="Estado" label-placement="stacked">
-      <ion-select-option *ngFor="let estado of estados" value="estado">{{estado}}</ion-select-option>
+    <ion-select 
+      (ionChange)="gerenciaEstado($event)" 
+      label="Estado" 
+      label-placement="stacked"
+      value="{{uf}}">
+      <ion-select-option *ngFor="let estado of estados" value="{{estado}}">{{estado}}</ion-select-option>
     </ion-select>
   </ion-item>
 
